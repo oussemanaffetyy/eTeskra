@@ -14,6 +14,6 @@ namespace eTeskra.Models
 		public string Description { get; set; }
 
         //Relationship
-        public List<Movie> Movies { get; set; }
+        public List<Movie>? Movies { get; set; }
     }
 }

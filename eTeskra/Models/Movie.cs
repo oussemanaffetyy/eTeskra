@@ -17,11 +17,11 @@ namespace eTeskra.Models
         public MovieCategory MovieCategory { get; set; }
 
         //Relationship
-        public List<Actor_Movie> Actor_Movies { get; set; }
+        public List<Actor_Movie>? Actor_Movies { get; set; }
         //Cinema
         public int CinemaId { get; set; }
         [ForeignKey("CinemaId")]
-        public Cinema Cinema { get; set; }
+        public Cinema? Cinema { get; set; }
 
         //Producer
         public int ProducerId { get; set; }
