@@ -8,7 +8,7 @@ namespace eTeskra.Data.Services
         Task <Actor> GetByIdAsync(int id);
         Task AddAsync(Actor actor);
         void Delete(int id);
-        Actor Update(int id, Actor newActor);
+        Task <Actor> UpdateAsync(int id, Actor newActor);
 
     }
 }
