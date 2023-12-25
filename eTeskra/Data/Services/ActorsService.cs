@@ -18,11 +18,7 @@ namespace eTeskra.Data.Services
             await _context.SaveChangesAsync(); 
         }
 
-        public void Delete(int id)
-        {
-            throw new NotImplementedException();
-        }
-
+       
         public async Task <IEnumerable<Actor>> GetAllAsync()
         {
             var result = await _context.Actors.ToListAsync();
@@ -40,6 +36,14 @@ namespace eTeskra.Data.Services
             _context.Actors.Update(newActor);
             await _context.SaveChangesAsync();
             return newActor;
+        }
+
+
+        public async Task DeleteAsync(int id)
+        {
+            var result = await _context.Actors.FirstOrDefaultAsync(x => x.Id == id);
+            _context.Actors.Remove(result!);
+            await _context.SaveChangesAsync();
         }
     }
 }
