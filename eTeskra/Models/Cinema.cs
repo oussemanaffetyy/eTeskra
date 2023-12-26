@@ -1,17 +1,21 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using eTeskra.Data.Base;
+using System.ComponentModel.DataAnnotations;
 
 namespace eTeskra.Models
 {
-    public class Cinema
+    public class Cinema : IEntityBase
     {
         [Key]
         public int Id { get; set; }
 		[Display(Name = "Cinema Logo")]
-		public string Logo { get; set; }
+        [Required(ErrorMessage = "Logo is Required !!")]
+        public string Logo { get; set; }
 		[Display(Name = "Name")]
-		public string Name { get; set; }
+        [Required(ErrorMessage = "Name is Required !!")]
+        public string Name { get; set; }
 		[Display(Name = "Description")]
-		public string Description { get; set; }
+        [Required(ErrorMessage = "Description is Required !!")]
+        public string Description { get; set; }
 
         //Relationship
         public List<Movie>? Movies { get; set; }
