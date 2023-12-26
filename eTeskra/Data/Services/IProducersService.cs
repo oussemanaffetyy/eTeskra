@@ -3,9 +3,7 @@ using eTeskra.Models;
 
 namespace eTeskra.Data.Services
 {
-    public interface IActorsService:IEntityBaseRespository<Actor>
+    public interface IProducersService:IEntityBaseRespository<Producer>
     {
-       
-
     }
 }
