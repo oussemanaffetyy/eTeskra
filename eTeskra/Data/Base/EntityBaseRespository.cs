@@ -2,6 +2,7 @@
 using eTeskra.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
+using System.Linq.Expressions;
 
 namespace eTeskra.Data.Base
 {
@@ -47,6 +48,14 @@ namespace eTeskra.Data.Base
             EntityEntry entityEntry = _context.Entry<T>(entity);
             entityEntry.State = EntityState.Deleted;
             await _context.SaveChangesAsync(); ;
+        }
+
+        public async Task<IEnumerable<T>> GetAllAsync(params Expression<Func<T, object>>[] includeProp)
+        {
+            IQueryable<T> query = _context.Set<T>();
+            query = includeProp.Aggregate(query, (current, includeProperty)=>current.Include(includeProperty));
+            return await query.ToListAsync();
+
         }
     }
 }
