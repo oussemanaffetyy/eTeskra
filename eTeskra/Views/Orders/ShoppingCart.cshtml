@@ -33,12 +33,12 @@
 						<td class="align-middle">
 							<a class="text-danger" asp-controller="Orders" asp-action="RemoveItemFromShoppingCart"
 							   asp-route-id="@item.Movie.Id">
-								<i class="bi bi-cart-dash"></i>
+								<i class="bi bi-cart-dash-fill"></i>
 							</a>
 							|
 							<a class="text-success" asp-controller="Orders" asp-action="AddItemToShoppingCart"
 							   asp-route-id="@item.Movie.Id">
-								<i class="bi bi-cart-plus"></i>
+								<i class="bi bi-cart-plus-fill"></i>
 							</a>
 						</td>
 					</tr>
@@ -57,9 +57,8 @@
 		</table>
 		<div class="text-center">
 			<div class="btn-group">
-				<a class="btn btn-outline-success" asp-controller="Movies" asp-action="Index">
-					Add More items ..
-				</a>
+				<a class="btn btn-outline-primary" asp-action="CompleteOrder">Complete Order</a>
+				<a class="btn btn-outline-success" asp-controller="Movies" asp-action="Index">Add More items</a>
 			</div>
 		</div>
 	</div>
