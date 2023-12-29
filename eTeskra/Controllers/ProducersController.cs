@@ -1,11 +1,14 @@
 ﻿using eTeskra.Data;
 using eTeskra.Data.Services;
+using eTeskra.Data.Static;
 using eTeskra.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace eTeskra.Controllers
 {
+    [Authorize(Roles =UserRoles.Admin)]
     public class ProducersController : Controller
     {
         private readonly IProducersService _service;
@@ -14,13 +17,15 @@ namespace eTeskra.Controllers
         {
             _service = service;
         }
-        public async Task<IActionResult> Index()
+		[AllowAnonymous]
+		public async Task<IActionResult> Index()
         {
             var data = await _service.GetAllAsync();
             return View(data);
         }
-        //Get: Producers/Details/1
-        public async Task<IActionResult> Details(int id)
+		//Get: Producers/Details/1
+		[AllowAnonymous]
+		public async Task<IActionResult> Details(int id)
         {
             var producersDetails = await _service.GetByIdAsync(id);
             if (producersDetails == null) return View("NotFound");

@@ -1,12 +1,16 @@
 ﻿using eTeskra.Data;
 using eTeskra.Data.Cart;
 using eTeskra.Data.Services;
+using eTeskra.Data.Static;
 using eTeskra.Data.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace eTeskra.Controllers
 {
-    public class OrdersController : Controller
+	[Authorize]
+	public class OrdersController : Controller
     {
         private readonly IMoviesService _moviesService;
         private readonly ShoppingCart _shoppingCart;
@@ -20,8 +24,9 @@ namespace eTeskra.Controllers
         }
 		public async Task <IActionResult> Index()
         {
-            string userId = "";
-            var orders = await _ordersService.GetOrdersByUserIdAsync(userId);
+            string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            string userRole = User.FindFirstValue(ClaimTypes.Role);
+            var orders = await _ordersService.GetOrdersByUserIdAndRoleAsync(userId, userRole);
             return View(orders);    
 
         }
@@ -59,9 +64,10 @@ namespace eTeskra.Controllers
         public async Task<IActionResult> CompleteOrder()
         {
             var items = _shoppingCart.GetShoppingCartItems();
-            string userId = "";
-            string userEmailAdress = "";
-           await _ordersService.StoreOrderAsync(items, userId, userEmailAdress);
+            string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            string userEmailAdress = User.FindFirstValue(ClaimTypes.Email);
+
+		   await _ordersService.StoreOrderAsync(items, userId, userEmailAdress);
             await _shoppingCart.ClearShoppingCartAsync();
             return View("OrderCompleted");
 

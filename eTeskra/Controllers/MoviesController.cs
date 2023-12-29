@@ -1,13 +1,16 @@
 ﻿using eTeskra.Data;
 using eTeskra.Data.Services;
+using eTeskra.Data.Static;
 using eTeskra.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 
 namespace eTeskra.Controllers
 {
-    public class MoviesController : Controller
+	[Authorize(Roles = UserRoles.Admin)]
+	public class MoviesController : Controller
     {
         private readonly IMoviesService _service;
 
@@ -15,13 +18,15 @@ namespace eTeskra.Controllers
         {
             _service = service;
         }
-        public async Task<IActionResult> Index()
+		[AllowAnonymous]
+		public async Task<IActionResult> Index()
         {
             var data = await _service.GetAllAsync(n => n.Cinema);
             return View(data);
         }
-            //Get: Movies/Details/1
-            public async Task<IActionResult> Details(int id)
+		//Get: Movies/Details/1
+		[AllowAnonymous]
+		public async Task<IActionResult> Details(int id)
             {
                 var moviesDetails = await _service.GetMovieByIdAsync(id);
                 
@@ -101,8 +106,9 @@ namespace eTeskra.Controllers
             await _service.UpdateMovieAsync(movie);
             return RedirectToAction(nameof(Index));
         }
-        
-         public async Task<IActionResult> Filter(string searchString)
+
+		[AllowAnonymous]
+		public async Task<IActionResult> Filter(string searchString)
           {
             var allMovies = await _service.GetAllAsync(n => n.Cinema);
             if (!string.IsNullOrEmpty(searchString))

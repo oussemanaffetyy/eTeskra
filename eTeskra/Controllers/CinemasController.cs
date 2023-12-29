@@ -1,12 +1,15 @@
 ﻿using eTeskra.Data;
 using eTeskra.Data.Services;
+using eTeskra.Data.Static;
 using eTeskra.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace eTeskra.Controllers
 {
-    public class CinemasController : Controller
+	[Authorize(Roles = UserRoles.Admin)]
+	public class CinemasController : Controller
     {
         private readonly ICinemasService _service;
 
@@ -15,14 +18,17 @@ namespace eTeskra.Controllers
             _service = service;
 
         }
-        public async Task<IActionResult> Index()
+
+		[AllowAnonymous]
+		public async Task<IActionResult> Index()
         {
             var data = await _service.GetAllAsync();
             return View(data);
         }
 
-        //Get: Cinemas/Details/1
-        public async Task<IActionResult> Details(int id)
+		//Get: Cinemas/Details/1
+		[AllowAnonymous]
+		public async Task<IActionResult> Details(int id)
         {
             var cinemasDetails = await _service.GetByIdAsync(id);
             if (cinemasDetails == null) return View("NotFound");
