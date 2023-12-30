@@ -42,9 +42,8 @@ app.UseStaticFiles();
 
 app.UseRouting();
 app.UseSession();
-// Seed the database
-AppDbInitializer.Seed(app);
-AppDbInitializer.SeedUsersAndRolesAsync(app).Wait();
+
+
 
 app.UseAuthentication();
 

@@ -20,3 +20,25 @@ html {
 body {
   margin-bottom: 60px;
 }
+
+.navbar {
+    background-color: #f8f9fa; /* Set your desired background color */
+    border-bottom: 1px solid #e2e6ea; /* Set your desired border color */
+}
+
+.navbar-brand {
+    color: #007bff !important; /* Set your desired brand color */
+    font-weight: bold; /* Set your desired font weight */
+}
+
+.navbar-nav .nav-item {
+    margin: 0 10px; /* Adjust spacing between nav items */
+}
+
+.nav-link {
+    color: #007bff !important; /* Set your desired text color */
+}
+
+.navbar-toggler-icon {
+    color: #007bff; /* Set your desired toggler icon color */
+}

@@ -4,48 +4,53 @@
     ViewData["Title"] = "Details Actor";
 }
 
-<div class="row text">
-    <div class="col-md-8 offset-2">
-        <p><h1>Details for @Model.FullName</h1></p>
-        <div class="row">
-            <div class="col-md-8 offset-2">
-               
-                   
+<section class="py-5">
+    <div class="container py-5">
+        <div class="row mb-4 mb-lg-5">
+            <div class="col-md-8 col-xl-6 text-center mx-auto">
+                <p class="fw-bold text-info mb-2">Details for @Model.FullName</p>
+                <h2 class="fw-bold">Actor Details</h2>
+            </div>
+        </div>
+        <div class="row d-flex justify-content-center">
+            <div class="col-md-6 col-xl-4">
+                <div class="card">
+                    <div class="card-body text-center d-flex flex-column align-items-center">
+                        <div class="bs-icon-xl bs-icon-circle bs-icon-info shadow bs-icon my-4">
+                            <img id="ProfilePicturePreview" class="border-info rounded-circle" style="max-width: 100px" />
+                        </div>
 
-                    <div class="form-group text-center">
-                        <img id="ProfilePicturePreview" class="border-info rounded-circle" style="max-width: 150px" />
-                    </div>
+                        <div class="mb-3">
+                            <label asp-for="ProfilePictureURL" class="control-label"></label>
+                            <input asp-for="ProfilePictureURL" class="form-control" readonly />
+                            <span asp-validation-for="ProfilePictureURL" class="text-danger"></span>
+                        </div>
 
-                    <div class="form-group">
-                        <label asp-for="ProfilePictureURL" class="control-label"></label>
-                        <input asp-for="ProfilePictureURL" class="form-control" readonly />
-                        <span asp-validation-for="ProfilePictureURL" class="text-danger"></span>
-                    </div>
+                        <div class="mb-3">
+                            <label asp-for="FullName" class="control-label"></label>
+                            <input asp-for="FullName" class="form-control" readonly />
+                            <span asp-validation-for="FullName" class="text-danger"></span>
+                        </div>
 
-                    <div class="form-group">
-                        <label asp-for="FullName" class="control-label"></label>
-                    <input asp-for="FullName" class="form-control" readonly />
-                        <span asp-validation-for="FullName" class="text-danger"></span>
-                    </div>
+                        <div class="mb-3">
+                            <label asp-for="Bio" class="control-label"></label>
+                            <input asp-for="Bio" class="form-control" readonly />
+                            <span asp-validation-for="Bio" class="text-danger"></span>
+                        </div>
 
-                    <div class="form-group">
-                        <label asp-for="Bio" class="control-label"></label>
-                    <input asp-for="Bio" class="form-control" readonly />
-                        <span asp-validation-for="Bio" class="text-danger"></span>
+                        <div class="mb-3">
+                            @if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
+                            {
+                                <a class="btn btn-outline-success shadow d-block w-100" asp-action="Edit" asp-route-id="@Model.Id">Edit</a>
+                            }
+                            <a class="btn btn-outline-secondary shadow d-block w-100 mt-3" asp-action="Index">Show All Actors</a>
+                        </div>
                     </div>
-
-                    <div class="form-group">
-                  @if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
-						{
-                    <a class="btn btn-outline-success " asp-action="Edit" asp-route-id="@Model.Id">Edit</a>
-                        }    
-                    <a class="btn btn-outline-secondary" asp-action="Index">Show All</a>
-                    </div>
-              
+                </div>
             </div>
         </div>
     </div>
-</div>
+</section>
 
 @section Scripts {
     <script>
@@ -53,6 +58,5 @@
             var output = document.getElementById('ProfilePicturePreview');
             output.src = $("#ProfilePictureURL").val();
         });
-
     </script>
 }
